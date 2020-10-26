@@ -7,9 +7,11 @@ namespace Classes_25._10._20_1
     {
         static void Main(string[] args)
         {
+            
             Console.WriteLine("Есть сотрудники. Фамилия Имя  Отчество Должность  Возраст Зарплата.   " +
                 "Генерируем все что можно. Необходимо понять, на сколько каждому сотруднику нужно поднять " +
                 "зарплату если все начали работать с 20 лет и увеличение рассчитывается в зависимости: 5% за каждые 4 года.");
+            Console.WriteLine("");
             const int MIN_STAFF_COUNT = 5;
             const int MAX_STAFF_COUNT = 100;
             Random rnd = new Random();
