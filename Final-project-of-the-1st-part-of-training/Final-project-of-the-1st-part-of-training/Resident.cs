@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 public enum Location
 {
-    home,
+    home=1,
     street
+}
+public struct Cargo
+{
+    public string name;
+    public int wt;
 }
 
 namespace Final_project_of_the_1st_part_of_training
@@ -20,15 +25,25 @@ namespace Final_project_of_the_1st_part_of_training
         { get; private set; }
         public int FlatNumber
         { get; private set; }
-        public Resident(int wt, string name)
+        public Cargo Cargo
+        { get; private set; }
+        public Resident(int wt, string name,Location location)
         {
             Name = name;
             Wt = wt;
+            Location = location;
         }
         public void PutInAnFlat(int flatNumber)
         {
             FlatNumber = flatNumber;
         }
-
+        public void ChangeLocation(Location location)
+        {
+            Location = location;
+        }
+        public void AddCargo(Cargo cargo)
+        {
+            Cargo = cargo;
+        }
     }
 }
