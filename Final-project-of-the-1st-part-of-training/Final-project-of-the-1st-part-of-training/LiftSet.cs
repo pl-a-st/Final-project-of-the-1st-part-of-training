@@ -12,9 +12,9 @@ namespace Final_project_of_the_1st_part_of_training
         {
             Set = set;
         }
-        public void SendLiftAndResident(Lift lift, Resident resident, int residentFloor)
+        public void SendLiftAndResident(Lift lift, Resident resident, int arrivalFloor)
         {
-            lift.ChangeFloor(residentFloor);
+            lift.ChangeFloor(arrivalFloor);
             Location atStreet = Location.street;
             Location atHome = Location.home;
             if (resident.Location == atStreet)
@@ -29,25 +29,47 @@ namespace Final_project_of_the_1st_part_of_training
         public void CallLiftCalculateSend(List<Flat> flats, Resident resident)
         {
             const int MAX_LIFT_LIFTINGCAPACITY = 400;
-            if (resident.Wt+resident.Cargo.wt>MAX_LIFT_LIFTINGCAPACITY)
+            if (resident.Wt + resident.Cargo.wt > MAX_LIFT_LIFTINGCAPACITY)
             {
-                Console.WriteLine("Обнаружен нарушитель, пытющийся заставить везти лифт более 400 кг. На место вызвана оперативная бригада, все лифты заблокированы");
+                Console.WriteLine("Обнаружен нарушитель, пытающийся заставить лифт везти более 400 кг. На место вызвана оперативная бригада, все лифты заблокированы");
                 Console.Write("Для продолжения введите любой символ");
                 Console.ReadLine();
             }
             else
             {
-                Lift targetLift;
-                do
+                const int FIRST_FLOOR = 1;
+                int targetLiftNumberinList=0;
+                int departureFloor;
+                int arrivalFloor;
+                int minDifference = 0;
+                foreach (Flat nextFlat in flats)
                 {
-                    targetLift = Set[0];
-                    foreach (Lift nextLift in Set)
+                    if (nextFlat.Floor > minDifference)
                     {
-                        if(nextLift.Floor)
+                        minDifference = nextFlat.Floor;
                     }
                 }
-                while (targetLift.LiftingCapacity < resident.Wt + resident.Cargo.wt);
-                
+                if (resident.Location == Location.home)
+                {
+                    departureFloor = resident.Flat.Floor;
+                    arrivalFloor = FIRST_FLOOR;
+                }
+                else
+                {
+                    departureFloor = FIRST_FLOOR;
+                    arrivalFloor = resident.Flat.Floor;
+                }
+                int i = 0;
+                foreach (Lift nextLift in Set)
+                {
+                    if (Math.Abs(nextLift.Floor - departureFloor) < minDifference && resident.Wt + resident.Cargo.wt < nextLift.LiftingCapacity)
+                    {
+                        targetLiftNumberinList = i;
+                    }
+                    i++;
+                }
+                SendLiftAndResident(Set[targetLiftNumberinList], resident, arrivalFloor);
+
             }
 
         }

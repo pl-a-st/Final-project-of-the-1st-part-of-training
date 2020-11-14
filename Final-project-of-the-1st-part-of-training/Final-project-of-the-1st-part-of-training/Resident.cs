@@ -23,7 +23,7 @@ namespace Final_project_of_the_1st_part_of_training
         { get; private set; }
         public int Wt
         { get; private set; }
-        public int FlatNumber
+        public Flat Flat
         { get; private set; }
         public Cargo Cargo
         { get; private set; }
@@ -33,9 +33,9 @@ namespace Final_project_of_the_1st_part_of_training
             Wt = wt;
             Location = location;
         }
-        public void PutInAnFlat(int flatNumber)
+        public void PutInAnFlat(Flat flat)
         {
-            FlatNumber = flatNumber;
+            Flat = flat;
         }
         public void ChangeLocation(Location location)
         {
