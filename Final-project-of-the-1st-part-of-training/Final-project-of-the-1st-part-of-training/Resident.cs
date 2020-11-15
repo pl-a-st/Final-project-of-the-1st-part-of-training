@@ -47,7 +47,25 @@ namespace Final_project_of_the_1st_part_of_training
         }
         public void Print ()
         {
-            Console.WriteLine("");
+            string location;
+            if (Location == Location.home)
+            {
+                location = "находится дома";
+            }
+            else
+            {
+                location = "рыщет по улице в поисках новой жертвы";
+            }
+            Console.WriteLine("Житель {0} квартиры {1} {2}.",Name,Flat.Number,location);
+        }
+        public void SortPrintListResident(List<Resident>residents, int floorCount)
+        {
+            List<List<Resident>> sortResidents = new List<List<Resident>>();
+            for()
+            foreach(Resident nextResident in residents)
+            {
+
+            }
         }
     }
 }

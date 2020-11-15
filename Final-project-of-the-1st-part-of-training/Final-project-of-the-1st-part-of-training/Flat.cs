@@ -30,7 +30,6 @@ namespace Final_project_of_the_1st_part_of_training
             }
             else
             {
-                //resident.PutInAnFlat(Flat); to do
                 ResidentCount++;
             }
         }
