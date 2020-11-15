@@ -32,13 +32,13 @@ namespace Final_project_of_the_1st_part_of_training
             if (resident.Wt + resident.Cargo.wt > MAX_LIFT_LIFTINGCAPACITY)
             {
                 Console.WriteLine("Обнаружен нарушитель, пытающийся заставить лифт везти более 400 кг. На место вызвана оперативная бригада, все лифты заблокированы");
-                Console.Write("Для продолжения введите любой символ");
+                Console.Write("Для продолжения введите любой символ: ");
                 Console.ReadLine();
             }
             else
             {
                 const int FIRST_FLOOR = 1;
-                int targetLiftNumberinList=0;
+                int targetLiftNumberinList=Set.Count;
                 int departureFloor;
                 int arrivalFloor;
                 int minDifference = 0;
@@ -59,19 +59,20 @@ namespace Final_project_of_the_1st_part_of_training
                     departureFloor = FIRST_FLOOR;
                     arrivalFloor = resident.Flat.Floor;
                 }
-                int i = 0;
-                foreach (Lift nextLift in Set)
+                do
                 {
-                    if (Math.Abs(nextLift.Floor - departureFloor) < minDifference && resident.Wt + resident.Cargo.wt < nextLift.LiftingCapacity)
+                    for (int i = 0; i < Set.Count; i++)
                     {
-                        targetLiftNumberinList = i;
+                        if (Math.Abs(Set[i].Floor - departureFloor) < minDifference && targetLiftNumberinList != i)
+                        {
+                            targetLiftNumberinList = i;
+                        }
                     }
-                    i++;
+                    Set[targetLiftNumberinList].ChangeFloor(departureFloor);
                 }
+                while (resident.Wt + resident.Cargo.wt > Set[targetLiftNumberinList].LiftingCapacity);
                 SendLiftAndResident(Set[targetLiftNumberinList], resident, arrivalFloor);
-
             }
-
         }
     }
 }
