@@ -58,13 +58,54 @@ namespace Final_project_of_the_1st_part_of_training
             }
             Console.WriteLine("Житель {0} квартиры {1} {2}.",Name,Flat.Number,location);
         }
-        public void SortPrintListResident(List<Resident>residents, int floorCount)
+        public void SortPrintListResident(List<Resident> residents, int floorCount)
         {
             List<List<Resident>> sortResidents = new List<List<Resident>>();
-            for()
-            foreach(Resident nextResident in residents)
+            for (int i = 0; i < floorCount; i++)
             {
-
+                List<Resident> residentsInThisFlor = new List<Resident>();
+                sortResidents.Add(residentsInThisFlor);
+            }
+            foreach (Resident nextResident in residents)
+            {
+                sortResidents[nextResident.Flat.Floor-1].Add(nextResident);
+            }
+            for (int i=0; i<sortResidents.Count;i++)
+            {
+                int atHome = 0;
+                int atStreet = 0;
+                foreach(Resident nextResident in sortResidents[i])
+                {
+                    if (Location == Location.home)
+                    {
+                        atHome++;
+                    }
+                    else
+                    {
+                        atStreet++;
+                    }
+                }
+                Console.Write("На этаже №{0} ",i+1);
+                if (atStreet==0 && atHome==0)
+                {
+                    Console.WriteLine("Совсем нет жильцов. На этаже всегда сыро и пахнет плесенью. Нередко, проходя по лестничной клетке, жители отчетливо слышали тихий скрежет за одной из дверей");
+                }
+                if (atHome>0)
+                {
+                    Console.Write("жители общим числом {0} сидят дома",atHome);
+                }
+                if (atStreet>0)
+                {
+                    Console.WriteLine(", жители общим числом {0} нахоядтся на улице.",atStreet);
+                }
+                else
+                {
+                    Console.WriteLine(".");
+                }
+                foreach(Resident nextResident in sortResidents[i])
+                {
+                    nextResident.Print();
+                }
             }
         }
     }

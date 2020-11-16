@@ -78,23 +78,25 @@ namespace Final_project_of_the_1st_part_of_training
         public void PrintResultSend(Resident resident)
         {
             const int FIRST_FLOOR_NUMBER = 1;
+            int location;
+            if (resident.Location == Location.home)
+            {
+                location = resident.Flat.Floor;
+            }
+            else
+            {
+                location = FIRST_FLOOR_NUMBER;
+            }
+            Console.WriteLine("Житель квартиры №{0} {1} приехал на этаж №{2}. Чтобы не простаивала грузопдъемность лифата {1} захватил с собой {3} весом {4} кг." +
+                " Легкий холодок пробежал по его спине, ощущение того, что он всего лишь симуляция опять острой иглой укололо в центр его естества. {1} заглянул в прорезь в стене, " +
+                "которую проковырял еще в детсве. Все лифты мирно покачивались каждый на отведенном ему судьбой месте:",
+                resident.Flat.Number, resident.Name, location, resident.Cargo.name, resident.Cargo.wt);
+           
             foreach (Lift nextLift in Set)
             {
-                int location;
-                if (resident.Location == Location.home)
-                {
-                    location = resident.Flat.Floor;
-                }
-                else
-                {
-                    location = FIRST_FLOOR_NUMBER;
-                }
-                Console.WriteLine("Житель квартиры №{0} {1} приехал на этаж №{2}. Чтобы не простаивала грузопдъемность лифата {1} захватил с собой {3} весом {4} кг." +
-                    " Легкий холодок пробежал по его спине, ощущение того, что он всего лишь симуляция опять острой иглой укололо в центр его естества.", 
-                    resident.Flat.Number, resident.Name, location, resident.Cargo.name, resident.Cargo.wt);
-                Console.Write("Лифт №{0} находиться на этаже №{1}. ", nextLift.Number, nextLift.Floor);
-                Console.WriteLine("");
+                Console.Write("Лифт №{0} на этаже №{1}. ", nextLift.Number, nextLift.Floor);
             }
+            Console.WriteLine("");
         }
     }
 }
