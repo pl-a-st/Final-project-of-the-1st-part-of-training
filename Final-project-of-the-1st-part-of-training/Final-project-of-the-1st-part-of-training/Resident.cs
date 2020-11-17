@@ -76,7 +76,7 @@ namespace Final_project_of_the_1st_part_of_training
                 int atStreet = 0;
                 foreach(Resident nextResident in sortResidents[i])
                 {
-                    if (Location == Location.home)
+                    if (nextResident.Location == Location.home)
                     {
                         atHome++;
                     }
@@ -88,7 +88,7 @@ namespace Final_project_of_the_1st_part_of_training
                 Console.Write("На этаже №{0} ",i+1);
                 if (atStreet==0 && atHome==0)
                 {
-                    Console.WriteLine("Совсем нет жильцов. На этаже всегда сыро и пахнет плесенью. Нередко, проходя по лестничной клетке, жители отчетливо слышали тихий скрежет за одной из иссохшихся дверей");
+                    Console.WriteLine("Совсем нет жильцов. Здесь всегда сыро и пахнет плесенью. Нередко, проходя по лестничной клетке, жители отчетливо слышали тихий скрежет за одной из иссохшихся дверей");
                 }
                 if (atHome>0)
                 {
@@ -106,6 +106,7 @@ namespace Final_project_of_the_1st_part_of_training
                 {
                     nextResident.Print();
                 }
+                Console.WriteLine("");
             }
         }
     }

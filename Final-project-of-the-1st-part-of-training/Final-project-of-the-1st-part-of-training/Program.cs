@@ -23,9 +23,37 @@ namespace Final_project_of_the_1st_part_of_training
             List<Resident> residents = generate.ListResidets(flats);
             List<Lift> lifts = generate.ListLift(floorCount);
             LiftSet liftSet = new LiftSet(lifts);
-            Cargo cargo = generate.Cargo();
-            
+            Menu(liftSet, flats, residents, floorCount);
+
         }
-        //static 
+        static void Menu(LiftSet liftSet, List<Flat> flats, List<Resident> residents, int floorCount)
+        {
+            Generate generate = new Generate();
+            Console.WriteLine("");
+            Console.WriteLine("Меню:");
+            Console.WriteLine("1. Имитировать вызов лифта.");
+            Console.WriteLine("2. Показать где находятся жильцы.");
+            Console.WriteLine("3. Выход.");
+            Console.Write("Введите номер пунта меню:");
+            string menuItem = Console.ReadLine();
+            if (menuItem == "1")
+            {
+                Random rnd = new Random();
+                liftSet.CallLiftCalculateSendPrint(flats, residents[rnd.Next(0,residents.Count+1)]);
+                Menu(liftSet, flats, residents, floorCount);
+            }
+            if (menuItem == "2")
+            {
+                residents[0].SortPrintListResident(residents,floorCount);
+                Menu(liftSet, flats, residents, floorCount);
+            }
+            if (menuItem == "3")
+            {
+                Environment.Exit(0);
+            }
+            Console.WriteLine("Вы ввели значение не из меню.");
+            Menu(liftSet, flats, residents, floorCount);
+        }
+
     }
 }

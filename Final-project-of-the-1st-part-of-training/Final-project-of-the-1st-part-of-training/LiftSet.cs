@@ -29,6 +29,8 @@ namespace Final_project_of_the_1st_part_of_training
         }
         public void CallLiftCalculateSendPrint(List<Flat> flats, Resident resident)
         {
+            Generate generate = new Generate();
+            resident.AddCargo(generate.Cargo());
             const int MAX_LIFT_LIFTINGCAPACITY = 400;
             if (resident.Wt + resident.Cargo.wt > MAX_LIFT_LIFTINGCAPACITY)
             {
@@ -39,40 +41,68 @@ namespace Final_project_of_the_1st_part_of_training
             else
             {
                 const int FIRST_FLOOR_NUMBER = 1;
-                int targetLiftNumberinList=Set.Count;
-                int departureFloor;
-                int arrivalFloor;
-                int minDifference = 0;
-                foreach (Flat nextFlat in flats)
+                if (resident.Flat.Floor==1)
                 {
-                    if (nextFlat.Floor > minDifference)
+                    int location;
+                    if (resident.Location == Location.home)
                     {
-                        minDifference = nextFlat.Floor;
+                        location = resident.Flat.Floor;
                     }
-                }
-                if (resident.Location == Location.home)
-                {
-                    departureFloor = resident.Flat.Floor;
-                    arrivalFloor = FIRST_FLOOR_NUMBER;
+                    else
+                    {
+                        location = FIRST_FLOOR_NUMBER;
+                    }
+                    Console.WriteLine("");
+                    Console.WriteLine("Житель квартиры №{0} {1} уже поднес палец к кнопке вызова лифта, но вовремя опомнился: Жителю первого этажа не нужен лифт. Усмехнувшись он посмотрел на свой безценный груз - {3} весом {4} кг." +
+                        " {1} заглянул в прорезь в стене, которую проковырял еще в детсве. Все лифты мирно покачивались каждый на отведенном ему судьбой месте:",
+                        resident.Flat.Number, resident.Name, location, resident.Cargo.name, resident.Cargo.wt);
+
+                    foreach (Lift nextLift in Set)
+                    {
+                        Console.Write("Лифт №{0} на этаже №{1}. ", nextLift.Number, nextLift.Floor);
+                    }
+                    Console.WriteLine("");
                 }
                 else
                 {
-                    departureFloor = FIRST_FLOOR_NUMBER;
-                    arrivalFloor = resident.Flat.Floor;
-                }
-                do
-                {
-                    for (int i = 0; i < Set.Count; i++)
+                    
+                    int targetLiftNumberinList = Set.Count;
+                    int departureFloor;
+                    int arrivalFloor;
+                    int minDifference = 0;
+                    foreach (Flat nextFlat in flats)
                     {
-                        if (Math.Abs(Set[i].Floor - departureFloor) < minDifference && targetLiftNumberinList != i)
+                        if (nextFlat.Floor > minDifference)
                         {
-                            targetLiftNumberinList = i;
+                            minDifference = nextFlat.Floor;
                         }
                     }
-                    Set[targetLiftNumberinList].ChangeFloor(departureFloor);
+                    if (resident.Location == Location.home)
+                    {
+                        departureFloor = resident.Flat.Floor;
+                        arrivalFloor = FIRST_FLOOR_NUMBER;
+                    }
+                    else
+                    {
+                        departureFloor = FIRST_FLOOR_NUMBER;
+                        arrivalFloor = resident.Flat.Floor;
+                    }
+                    do
+                    {
+                        for (int i = 0; i < Set.Count; i++)
+                        {
+                            if (Math.Abs(Set[i].Floor - departureFloor) < minDifference && targetLiftNumberinList != i)
+                            {
+                                targetLiftNumberinList = i;
+                                minDifference = Math.Abs(Set[i].Floor - departureFloor);
+                            }
+                        }
+                        Set[targetLiftNumberinList].ChangeFloor(departureFloor);
+                    }
+                    while (resident.Wt + resident.Cargo.wt > Set[targetLiftNumberinList].LiftingCapacity);
+                    SendLiftAndResident(Set[targetLiftNumberinList], resident, arrivalFloor);
                 }
-                while (resident.Wt + resident.Cargo.wt > Set[targetLiftNumberinList].LiftingCapacity);
-                SendLiftAndResident(Set[targetLiftNumberinList], resident, arrivalFloor);
+                
             }
         }
         public void PrintResultSend(Resident resident)
@@ -87,6 +117,7 @@ namespace Final_project_of_the_1st_part_of_training
             {
                 location = FIRST_FLOOR_NUMBER;
             }
+            Console.WriteLine("");
             Console.WriteLine("Житель квартиры №{0} {1} приехал на этаж №{2}. Чтобы не простаивала грузопдъемность лифата {1} захватил с собой {3} весом {4} кг." +
                 " Легкий холодок пробежал по его спине, ощущение того, что он всего лишь симуляция опять острой иглой укололо в центр его естества. {1} заглянул в прорезь в стене, " +
                 "которую проковырял еще в детсве. Все лифты мирно покачивались каждый на отведенном ему судьбой месте:",

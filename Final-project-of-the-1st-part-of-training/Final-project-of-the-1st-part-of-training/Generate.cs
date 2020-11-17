@@ -13,13 +13,15 @@ namespace Final_project_of_the_1st_part_of_training
             const int MAX_FLATS_CAPACITY = 5;
             Random rnd = new Random();
             List<Flat> flats = new List<Flat>();
+            int flatNumber = 1;
             for (int i = 0; i < floorCount; i++)
             {
                 for (int j = 0; j < FLAT_COUNT_IN_FLOOR; j++)
                 {
                     int capacity = rnd.Next(MIN_FLATS_CAPACITY, MAX_FLATS_CAPACITY + 1);
-                    Flat flat = new Flat(i + 1, capacity, j + 1);
+                    Flat flat = new Flat(i + 1, capacity,flatNumber);
                     flats.Add(flat);
+                    flatNumber++;
                 }
             }
             return flats;
@@ -77,14 +79,19 @@ namespace Final_project_of_the_1st_part_of_training
             Random rnd = new Random();
             List<Cargo> cargos = new List<Cargo>
             {
-               new Cargo() {name="Чемодан урановых бревен",wt=200},
-               new Cargo() {name="Воображаемый друг",wt=0},
-               new Cargo() {name="Пять томов большой советской энциклопедии",wt=80},
-               new Cargo() {name="Унитаз",wt=20},
-               new Cargo() {name="Чувство собственной важности",wt=90},
-               new Cargo() {name="Ведерочко ртути",wt=150}
+               new Cargo() {name="чемодан урановых бревен",wt=200},
+               new Cargo() {name="воображаемого друга",wt=0},
+               new Cargo() {name="пять томов большой советской энциклопедии",wt=80},
+               new Cargo() {name="унитаз",wt=20},
+               new Cargo() {name="чувство собственной важности",wt=90},
+               new Cargo() {name="ведерочко ртути",wt=150}
             };
             return cargos[rnd.Next(0, cargos.Count)];
+        }
+        public Resident ChooseResident(List<Resident> resident )
+        {
+            Random rnd = new Random();
+            return resident[rnd.Next(0, resident.Count + 1)];
         }
     }
 }
