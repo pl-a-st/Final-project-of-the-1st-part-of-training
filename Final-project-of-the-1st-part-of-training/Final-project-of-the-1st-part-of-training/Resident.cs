@@ -58,7 +58,7 @@ namespace Final_project_of_the_1st_part_of_training
             }
             Console.WriteLine("Житель {0} квартиры {1} {2}.",Name,Flat.Number,location);
         }
-        public void SortPrintListResident(List<Resident> residents, int floorCount)
+        public void SortPrintListResident(List<Resident> residents, int floorCount) 
         {
             List<List<Resident>> sortResidents = new List<List<Resident>>();
             for (int i = 0; i < floorCount; i++)
@@ -85,10 +85,11 @@ namespace Final_project_of_the_1st_part_of_training
                         atStreet++;
                     }
                 }
+                Console.WriteLine("");
                 Console.Write("На этаже №{0} ",i+1);
                 if (atStreet==0 && atHome==0)
                 {
-                    Console.WriteLine("Совсем нет жильцов. Здесь всегда сыро и пахнет плесенью. Нередко, проходя по лестничной клетке, жители отчетливо слышали тихий скрежет за одной из иссохшихся дверей");
+                    Console.WriteLine("совсем нет жильцов. Здесь всегда сыро и пахнет плесенью. Нередко, проходя по лестничной клетке, жители отчетливо слышали тихий скрежет за одной из иссохшихся дверей");
                 }
                 if (atHome>0)
                 {
@@ -106,7 +107,6 @@ namespace Final_project_of_the_1st_part_of_training
                 {
                     nextResident.Print();
                 }
-                Console.WriteLine("");
             }
         }
     }
